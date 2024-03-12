@@ -8,6 +8,8 @@ import { MainContainer, ChatContainer, MessageList, Message, MessageInput, Typin
 const API_KEY = "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";
 
 function Monsters() {
+  const { loading, error, data } = useQuery(GET_OPENAI_API_KEY); // Use the useQuery hook to fetch the API key
+
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -49,7 +51,7 @@ function Monsters() {
 
     const systemMessage = {
       role: "system",
-      content: "Speak like you are a master D&D player that creates character sheets for your friends."
+      content: "Speak like you are a master D&D player that creates monsters for your friends."
     }
 
     const apiRequestBody = {
@@ -93,19 +95,5 @@ function Monsters() {
     </div>
   );
 }
+
 export default Monsters;
-
-
-
-// import React from 'react';
-
-// function Monsters() {
-//   return (
-//     <div className="monsters-page">
-//       <h2>Monsters</h2>
-//       <p>This is the Monsters page. You can view and manage your monsters here.</p>
-//     </div>
-//   );
-// }
-
-// export default Monsters;
