@@ -9,7 +9,7 @@ const db = require('./config/connection.js');
 const typeDefs = require('./graphql/schemas/typeDefs.js');
 const resolvers = require('./graphql/schemas/resolvers.js');
 const { authMiddleware } = require('./utils/authMiddleware.js');
-const generateCharacterSheetRouter = require('./api/generateCharacterSheet.js');
+const generateCharacterSheetRouter = require('./api/generateCharacterSheet');
 const { OpenAI } = require('openai');
 
 const openaiApiKey = process.env.REACT_APP_OPENAI_API_KEY;
