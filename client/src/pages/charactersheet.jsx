@@ -38,10 +38,6 @@ function CharacterSheet() {
     let apiMessages = chatMessages.map((messageObject) => {
       let role = "";
 
-
-<<<<<<<<< Temporary merge branch 1
-  const API_KEY = data.getOpenAIApiKey; // Get the API key from the fetched data
-=========
       if(messageObject.sender === "ChatGPT") {
         
         role = "assistant";
@@ -51,12 +47,11 @@ function CharacterSheet() {
       return { role: role, content: messageObject.message }
     });
 
-
     const systemMessage = {
       role: "system",
       content: "Speak like you are a master D&D player that creates character sheets for your friends."
     }
-    
+
     const apiRequestBody = {
       "model": "gpt-3.5-turbo",
       "messages": [
@@ -65,54 +60,27 @@ function CharacterSheet() {
       ]
     }
     
-    await fetch("http://localhost:3001/api/generateCharacterSheet", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    
+   await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + API_KEY,
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(apiRequestBody)
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        console.log('Sending request to OpenAI API:', apiRequestBody);
-        return response.json();
-      })
-      .then((data) => {
-        console.log('OpenAI API response:', data);
-        if (data.choices && data.choices[0] && data.choices[0].message) {
-          console.log(data.choices[0].message.content);
-          setMessages(
-            [...chatMessages, {
-              message: data.choices[0].message.content,
-              sender: "ChatGPT"
-            }]
-          );
-        } else {
-          console.error('Unexpected API response', data);
-          setMessages(
-            [...chatMessages, {
-              message: "Sorry, I couldn't process your request. Please try again.",
-              sender: "ChatGPT"
-            }]
-          );
-        }
-        setTyping(false);
-      })
-      .catch((error) => {
-        console.error('Fetch request failed:', error);
+      }).then((data) => {
+        return data.json();
+      }).then((data) => {
+        console.log(data);
+        console.log(data.choices[0].message.content);
         setMessages(
           [...chatMessages, {
-            message: "Sorry, I couldn't process your request. Please try again later.",
+            message: data.choices[0].message.content,
             sender: "ChatGPT"
           }]
         );
         setTyping(false);
-      });
+      })
     }
->>>>>>>>> Temporary merge branch 2
 
   return (
     <div className="App">
@@ -133,8 +101,4 @@ function CharacterSheet() {
     </div>
   );
 }
-
 export default CharacterSheet;
-
-
-
