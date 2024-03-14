@@ -59,10 +59,6 @@ const startApolloServer = async () => {
     res.status(405).json({ message: "GET method not allowed for this route." });
   });
 
-  app.get("/", (req, res) => {
-    res.send("Welcome to the API server!");
-  });
-
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/dist")));
 
