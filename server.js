@@ -12,12 +12,12 @@ const { expressMiddleware } = require("@apollo/server/express4");
 const path = require("path");
 const cors = require("cors");
 
-const db = require("./config/connection.js");
-const typeDefs = require("./graphql/schemas/typeDefs.js");
-const resolvers = require("./graphql/schemas/resolvers.js");
-const { authMiddleware } = require("./utils/authMiddleware.js");
-const generateCharacterSheetRouter = require("./api/generateCharacterSheet.js");
-const apiKeyRouter = require("./api/routes/openaiRoute.js");
+const db = require("./server/config/connection.js");
+const typeDefs = require("./server/graphql/schemas/typeDefs.js");
+const resolvers = require("./server/graphql/schemas/resolvers.js");
+const { authMiddleware } = require("./server/utils/authMiddleware.js");
+const generateCharacterSheetRouter = require("./server/api/generateCharacterSheet.js");
+const apiKeyRouter = require("./server/api/routes/openaiRoute.js");
 const { OpenAI } = require("openai");
 
 const openaiApiKey = process.env.OPENAI_API_KEY;
